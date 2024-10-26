@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:person_list/data/models/person_model.dart';
+import 'package:person_list/presentation/widgets/image_box.dart';
 import 'package:person_list/utils/helper.dart';
 
 class PersonCard extends StatelessWidget {
@@ -20,13 +21,7 @@ class PersonCard extends StatelessWidget {
             effects: const [FadeEffect(), ScaleEffect()],
             child: Row(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    person.avatar,
-                    height: 100.0,
-                  ),
-                ),
+                ImageBox(url: person.avatar),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Column(
