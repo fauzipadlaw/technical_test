@@ -6,17 +6,19 @@ class ImageBox extends StatelessWidget {
   final String url;
   final double height;
   final double width;
+  final double borderRadius;
   const ImageBox({
     super.key,
     required this.url,
     this.height = 100,
     this.width = 133,
+    this.borderRadius = 8,
   });
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(borderRadius),
       child: SizedBox(
           height: height,
           width: width,
@@ -31,6 +33,7 @@ class ImageBox extends StatelessWidget {
             ),
             child: CachedNetworkImage(
               imageUrl: url,
+              fit: BoxFit.cover,
               placeholder: (context, url) => Skeletonizer(
                 enabled: true,
                 child: ImageBox(

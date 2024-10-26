@@ -40,6 +40,13 @@ class Person extends Equatable {
     );
   }
 
+  String get firstName => name.split(" ")[0];
+  String get lastName {
+    List<String> nameParts = name.split(' ');
+    return nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '';
+  }
+  String get fullAddress => '$addressNo $street $county $zipCode $country';
+
   @override
   List<Object> get props => [
         id,

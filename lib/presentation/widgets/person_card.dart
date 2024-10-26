@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:person_list/data/models/person_model.dart';
+import 'package:person_list/presentation/screen/person_detail_screen.dart';
 import 'package:person_list/presentation/widgets/image_box.dart';
 import 'package:person_list/utils/helper.dart';
 
@@ -14,6 +15,15 @@ class PersonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => PersonDetailScreen(
+                    person: person,
+                  )),
+        );
+      },
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(12),
