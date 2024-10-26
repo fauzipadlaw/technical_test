@@ -16,7 +16,7 @@ class SearchField extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(16.0),
           boxShadow: const [
             BoxShadow(
               color: Colors.black12,
