@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:person_list/data/fake/fake_person.dart';
+import 'package:person_list/presentation/widgets/person_card.dart';
 import 'package:person_list/presentation/widgets/search_field.dart';
-import 'package:person_list/utils/helper.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../bloc/person_bloc.dart';
 import '../bloc/person_event.dart';
@@ -27,26 +29,25 @@ class PersonListScreen extends StatelessWidget {
           Expanded(
             child: BlocBuilder<PersonBloc, PersonState>(
               builder: (context, state) {
-                if (state is PersonLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is PersonLoaded) {
-                  return ListView.builder(
-                    itemCount: state.persons.length,
-                    itemBuilder: (context, index) {
-                      final person = state.persons[index];
-                      return ListTile(
-                        leading: Image.network(person.avatar),
-                        title: Text(person.name),
-                        subtitle: Text(Helper.humanizeDate(person.createdAt)),
-                      );
-                    },
+                if (state is PersonLoading || state is PersonLoaded) {
+                  return Skeletonizer(
+                    enabled: state is PersonLoading,
+                    child: ListView.builder(
+                      itemCount:
+                          state is PersonLoaded ? state.persons.length : 10,
+                      itemBuilder: (context, index) {
+                        final person = state is PersonLoaded
+                            ? state.persons[index]
+                            : FakePerson(createdAt: DateTime.now());
+                        return PersonCard(person: person);
+                      },
+                    ),
                   );
                 } else if (state is PersonError) {
                   return Center(
                       child: Text('Failed to fetch data: ${state.message}'));
                 }
+
                 return const Center(child: Text('No data'));
               },
             ),
