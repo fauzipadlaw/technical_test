@@ -12,6 +12,7 @@ abstract class PersonState extends Equatable {
 class PersonInitial extends PersonState {}
 
 class PersonLoading extends PersonState {}
+class PersonLoadedEmpty extends PersonState {}
 
 class PersonLoaded extends PersonState {
   final List<Person> persons;

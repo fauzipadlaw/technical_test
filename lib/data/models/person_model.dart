@@ -29,7 +29,7 @@ class Person extends Equatable {
     return Person(
       id: json['id'],
       name: json['name'],
-      avatar: json['avatar'],
+      avatar: '${json['avatar']}?${json['id']}',
       city: json['city'],
       country: json['country'],
       county: json['county'],

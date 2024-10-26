@@ -11,7 +11,23 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
       emit(PersonLoading());
       try {
         final persons = await repository.getPersons();
-        emit(PersonLoaded(persons));
+        emit(persons.isNotEmpty ? PersonLoaded(persons) : PersonLoadedEmpty());
+      } catch (e) {
+        emit(PersonError(e.toString()));
+      }
+    });
+
+    on<SearchPersons>((event, emit) async {
+      emit(PersonLoading());
+      try {
+        final persons = await repository.getPersons();
+        final filteredPersons = persons
+            .where((person) =>
+                person.name.toLowerCase().contains(event.query.toLowerCase()))
+            .toList();
+        emit(filteredPersons.isNotEmpty
+            ? PersonLoaded(filteredPersons)
+            : PersonLoadedEmpty());
       } catch (e) {
         emit(PersonError(e.toString()));
       }

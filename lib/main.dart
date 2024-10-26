@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       home: BlocProvider(
         create: (context) =>
             PersonBloc(PersonRepository())..add(FetchPersons()),
-        child: const PersonListScreen(),
+        child: PersonListScreen(),
       ),
     );
   }
