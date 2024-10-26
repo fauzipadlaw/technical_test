@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:person_list/data/models/person_model.dart';
+import 'package:person_list/presentation/bloc/person_state.dart';
 import 'package:person_list/presentation/screen/person_detail_screen.dart';
 import 'package:person_list/presentation/widgets/image_box.dart';
 import 'package:person_list/utils/helper.dart';
 
 class PersonCard extends StatelessWidget {
   final Person person;
+  final PersonState state;
   const PersonCard({
     super.key,
     required this.person,
+    required this.state,
   });
 
   @override
@@ -28,7 +31,9 @@ class PersonCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Animate(
-            effects: const [FadeEffect(), ScaleEffect()],
+            effects: state is PersonLoading
+                ? []
+                : const [FadeEffect(), ScaleEffect()],
             child: Row(
               children: [
                 ImageBox(url: person.avatar),

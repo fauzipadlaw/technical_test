@@ -30,11 +30,14 @@ class DetailCardRow extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     const Text(
@@ -54,7 +57,9 @@ class DetailCardRow extends StatelessWidget {
                 child: Text(
                   content,
                   style: const TextStyle(fontSize: 16),
-                ).animate().fadeIn(duration: const Duration(milliseconds: 700)),
+                ).animate().fadeIn(
+                      duration: const Duration(milliseconds: 700),
+                    ),
               )
             ],
           ),

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -23,24 +24,13 @@ class ImageBox extends StatelessWidget {
           height: height,
           width: width,
           child: Skeleton.replace(
-            replacement: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: const SizedBox(
-                width: 100,
-                height: 133,
-                child: ColoredBox(color: Colors.black),
-              ),
-            ),
+            replacement: SkeletonReplacement(width, height),
             child: CachedNetworkImage(
               imageUrl: url,
               fit: BoxFit.cover,
               placeholder: (context, url) => Skeletonizer(
                 enabled: true,
-                child: ImageBox(
-                  height: height,
-                  width: width,
-                  url: url,
-                ),
+                child: SkeletonReplacement(width, height),
               ),
               errorWidget: (context, url, error) => Container(
                   decoration: BoxDecoration(
@@ -52,6 +42,24 @@ class ImageBox extends StatelessWidget {
                   )),
             ),
           )),
+    );
+  }
+}
+
+class SkeletonReplacement extends StatelessWidget {
+  final double width;
+  final double height;
+  const SkeletonReplacement(this.width, this.height, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: const ColoredBox(color: Colors.black),
+      ),
     );
   }
 }

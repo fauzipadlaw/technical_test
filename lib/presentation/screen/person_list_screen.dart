@@ -39,7 +39,7 @@ class PersonListScreen extends StatelessWidget {
                         final person = state is PersonLoaded
                             ? state.persons[index]
                             : Helper.fakePerson();
-                        return PersonCard(person: person);
+                        return PersonCard(person: person, state: state);
                       },
                     ),
                   );
